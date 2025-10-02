@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 2. Mode Backtrack
 ```bash
-python -m crawler.backtrack_cli --start 2025-09-25 --end 2025-09-25 --output example_outputs/backtrack.json --max-pages 1 --rate 1
+python -m crawler.backtrack_cli --start 2025-10-02 --end 2025-10-02 --output example_outputs/backtrack.json --max-pages 1 --rate 1
 ```
 
 3. Mode Standard

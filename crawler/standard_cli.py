@@ -20,7 +20,7 @@ def load_existing(file_path):
 
 def standard_crawl(output_file, interval=600, max_pages=1, delay=1.0, run_once=False):
     session = requests.Session()
-    session.headers.update({"User-Agent": "BisnisCrawler/1.0"})
+    session.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"})
 
     # artikel yang sudah pernah diambil
     articles = load_existing(output_file)

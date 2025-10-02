@@ -12,7 +12,7 @@ SEED_URLS = ["https://bisnis.com"]
 def backtrack_crawl(start_date, end_date, output_file, max_pages=2, delay=1.0):
     """Crawl artikel dari bisnis.com berdasarkan rentang tanggal"""
     session = requests.Session()
-    session.headers.update({"User-Agent": "BisnisCrawler/1.0"})
+    session.headers.update({"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"})
 
     # ubah input string tanggal jadi objek date
     start = datetime.strptime(start_date, "%Y-%m-%d").date()
