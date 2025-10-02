@@ -1,6 +1,0 @@
-{
-  "interval": 600,
-  "rate_limit": 1.0,
-  "max_pages_backtrack": 3,
-  "max_pages_standard": 1
-}
