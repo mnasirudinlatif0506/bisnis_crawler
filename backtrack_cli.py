@@ -2,7 +2,7 @@ import argparse
 from datetime import datetime, timezone, timedelta
 from crawler.core import get_soup, find_article_urls_from_soup, scrape_article, save_json
 
-# Helper untuk parsing tanggal Indonesia
+# Helper parsing tanggal Indonesia → datetime
 def parse_bisnis_date(raw_date: str):
     bulan_map = {
         "Januari": "January", "Februari": "February", "Maret": "March",
@@ -24,7 +24,6 @@ def parse_bisnis_date(raw_date: str):
     except Exception:
         return None
 
-
 def backtrack_crawl(start_date, end_date, output_file):
     base_url = "https://www.bisnis.com"
     soup = get_soup(base_url)
@@ -41,18 +40,23 @@ def backtrack_crawl(start_date, end_date, output_file):
 
             # Parsing tanggal
             pub_date = None
+            t = article["tanggal_terbit"]
+
             try:
-                pub_date = datetime.fromisoformat(article["tanggal_terbit"].replace("Z", "+00:00"))
+                # ISO format
+                pub_date = datetime.fromisoformat(t.replace("Z", "+00:00"))
             except Exception:
-                pub_date = parse_bisnis_date(article["tanggal_terbit"])
+                # Format Indonesia
+                pub_date = parse_bisnis_date(t)
 
             if not pub_date:
                 print(f"Gagal parsing tanggal untuk artikel: {url}")
                 continue
 
+            # Filter sesuai range
             if start_date <= pub_date.date() <= end_date:
                 articles.append(article)
-                print(f"Artikel ditambahkan: {article['judul']} ({pub_date.isoformat()})")
+                print(f"Artikel ditambahkan: {article['judul']} ({pub_date.date()})")
             else:
                 print(f"Lewatkan artikel (tanggal {pub_date.date()})")
         except Exception as e:
@@ -67,7 +71,6 @@ def backtrack_crawl(start_date, end_date, output_file):
     print(f"Disimpan ke             : {output_file}")
     print("="*40)
     print("Backtrack selesai.")
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
